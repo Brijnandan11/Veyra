@@ -8,4 +8,16 @@ app.get('/', (req,res) =>{
     })
 })
 
+app.get('/health',(req, res) =>{
+    res.json({
+        status: "OK"
+    })
+})
+
+app.get('/api/v1/health',(req, res) =>{
+    res.json({
+        status: "OK"
+    })
+})
+
 export default app

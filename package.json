@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/Brijnandan11/Veyra.git"
   },
-  "type": "commonjs",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
