@@ -14,11 +14,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/server.js",
-    "start": "node src/server.js"
+    "dev": "nodemon --exec \"node --env-file=.env\" src/server.js",
+    "start": "node --env-file=.env src/server.js"
   },
   "keywords": [],
   "dependencies": {
+    "@supabase/supabase-js": "^2.117.2",
     "express": "^5.2.1"
   },
   "devDependencies": {
