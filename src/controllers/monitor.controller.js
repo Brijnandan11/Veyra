@@ -1,4 +1,4 @@
-import { createMonitor as createMonitorService, getMonitors as getMonitorsService, getMonitor as getMonitorService, updateMonitor as updateMonitorService, deleteMonitor as deleteMonitorService } from "../services/monitor.service.js"
+import { createMonitor as createMonitorService, getMonitors as getMonitorsService, getMonitor as getMonitorService, updateMonitor as updateMonitorService, deleteMonitor as deleteMonitorService, getActiveMonitors as getActiveMonitorService } from "../services/monitor.service.js"
 
 export const createMonitor = async (req, res) => {
     try {

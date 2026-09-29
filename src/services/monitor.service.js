@@ -70,3 +70,16 @@ export const deleteMonitor = async (id) => {
 
     return data
 }
+
+export const getActiveMonitors = async () => {
+    const { data, error } = await supabase
+    .from("monitors")
+    .select("*")
+    .eq("active",true)
+
+    if(error){
+        throw error
+    }
+
+    return data
+}
