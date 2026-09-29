@@ -3,16 +3,14 @@ export const checkUrl = async (url) => {
 
     const controller = new AbortController()
 
-    const timeout = setTimeout(() =>{
+    const timeout = setTimeout(() => {
         controller.abort()
-    },10000)
+    }, 10000)
 
     try {
-        const response = await fetch(url,
-            {
-                signal: controller.signal()
-            }
-        )
+        const response = await fetch(url, {
+            signal: controller.signal
+        })
 
         const responseTime = Date.now() - start
 
@@ -31,7 +29,8 @@ export const checkUrl = async (url) => {
             responseTime,
             error: error.message
         }
-    }finally{
+
+    } finally {
         clearTimeout(timeout)
     }
 }
