@@ -1,4 +1,5 @@
 import { createMonitor as createMonitorService, getMonitors as getMonitorsService, getMonitor as getMonitorService, updateMonitor as updateMonitorService, deleteMonitor as deleteMonitorService, getActiveMonitors as getActiveMonitorService } from "../services/monitor.service.js"
+import { getMonitorStats as getMonitorStatsService } from "../services/stats.service.js"
 
 export const createMonitor = async (req, res) => {
     try {
@@ -91,4 +92,18 @@ export const deleteMonitor = async (req, res) => {
         })
     }
 
+}
+
+export const getMonitorStats = async (req, res) => {
+    try {
+        const stats = await getMonitorStatsService(req.params.id)
+
+        res.status(200).json({
+            data: stats
+        })
+    } catch (error) {
+        res.status(500).json({
+            error: error.message
+        })
+    }
 }
