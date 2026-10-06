@@ -20,7 +20,10 @@
   "keywords": [],
   "dependencies": {
     "@supabase/supabase-js": "^2.117.2",
+    "argon2": "^0.45.1",
+    "bcrypt": "^6.0.0",
     "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
     "node-cron": "^4.6.0"
   },
   "devDependencies": {
