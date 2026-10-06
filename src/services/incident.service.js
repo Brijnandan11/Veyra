@@ -48,3 +48,16 @@ export const resolveIncident = async (incidentId) => {
 
 }
 
+export const getMonitorIncidents = async(monitorId) => {
+    const { data, error } = await supabase 
+      .from("incidents")
+      .select("*")
+      .eq("monitor_id", monitorId)
+      .order("started_at", { ascending: false })
+
+      if(error){
+        throw error
+      }
+
+      return data
+}
