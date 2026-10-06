@@ -1,7 +1,6 @@
 import express from "express"
 import supabase from "./config/supabase.js"
 import monitorRoutes from "./routes/monitor.routes.js"
-import { getMonitorStats } from "./services/stats.service.js"
 
 const app = express()
 
@@ -19,20 +18,6 @@ app.get("/api/v1/health", (req, res) => {
     res.json({
         status: "ok"
     })
-})
-
-app.get("/api/v1/monitors/:id/stats", async (req, res) => {
-    try {
-        const stats = await getMonitorStats(req.params.id)
-
-        return res.status(200).json({
-            data: stats
-        })
-    } catch (error) {
-        return res.status(500).json({
-            error: error.message
-        })
-    }
 })
 
 app.get("/api/v1/test-db", async (req, res) => {
