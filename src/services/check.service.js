@@ -19,11 +19,12 @@ export const createCheck = async (monitorId, result) => {
      return data
 }
 
-export const getChecksByMonitor = async(monitorId) => {
+export const getChecksByMonitor = async(monitorId, userId) => {
     const { data, error } = await supabase
       .from("checks")
       .select("*")
       .eq("monitor_id", monitorId)
+      .eq("user_id", userId)
       .order("checked_at", { ascending: false })
 
       if(error){
