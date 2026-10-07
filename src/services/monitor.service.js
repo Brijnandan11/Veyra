@@ -18,10 +18,11 @@ export const createMonitor = async (monitorData, userId) => {
     return data
 }
 
-export const getMonitors = async () => {
+export const getMonitors = async (userId) => {
     const { data, error } = await supabase
         .from("monitors")
         .select("*")
+        .eq("user_id", userId)
 
     if (error) {
         throw error
@@ -30,11 +31,12 @@ export const getMonitors = async () => {
     return data
 }
 
-export const getMonitor = async (id) => {
+export const getMonitor = async (id, userId) => {
     const { data, error } = await supabase
         .from("monitors")
         .select()
         .eq("id", id)
+        .eq("user_id", userId)
         .single()
 
     if (error) {
@@ -44,11 +46,12 @@ export const getMonitor = async (id) => {
     return data
 }
 
-export const updateMonitor = async (id, monitorData) => {
+export const updateMonitor = async (id, monitorData, userId) => {
     const { data, error } = await supabase
         .from("monitors")
         .update(monitorData)
         .eq("id", id)
+        .eq("user_id", userId)
         .select()
         .single()
 
@@ -59,11 +62,12 @@ export const updateMonitor = async (id, monitorData) => {
     return data
 }
 
-export const deleteMonitor = async (id) => {
+export const deleteMonitor = async (id, userId) => {
     const { data, error } = await supabase
     .from("monitors")
     .delete()
     .eq("id", id)
+    .eq("user_id", userId)
     .select()
     .single()
 
