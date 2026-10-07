@@ -2,6 +2,7 @@ import express from "express"
 import supabase from "./config/supabase.js"
 import monitorRoutes from "./routes/monitor.routes.js"
 import authRoutes from "./routes/auth.routes.js"
+import { authMiddleware } from "./middlewares/auth.middleware.js"
 
 const app = express()
 
