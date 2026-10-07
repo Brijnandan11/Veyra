@@ -1,10 +1,11 @@
 import supabase from "../config/supabase.js"
 
-export const getMonitorStats = async (monitorId) => {
+export const getMonitorStats = async (monitorId, userId) => {
     const { data: checks, error } = await supabase
         .from('checks')
         .select("status, response_time, checked_at")
         .eq("monitor_id", monitorId)
+        .eq("user_id", userId)
 
     if (error) {
         throw error
