@@ -22,7 +22,7 @@ export const createMonitor = async (req, res) => {
 
 export const getMonitors = async (req, res) => {
     try {
-        const monitors = await getMonitorsService()
+        const monitors = await getMonitorsService(req.user.id)
 
         res.status(200).json({
             data: monitors
@@ -37,7 +37,7 @@ export const getMonitors = async (req, res) => {
 export const getMonitor = async (req, res) => {
     try {
 
-        const monitor = await getMonitorService(req.params.id)
+        const monitor = await getMonitorService(req.params.id, req.user.id)
 
         res.status(200).json({
             data: monitor
@@ -59,7 +59,7 @@ export const getMonitor = async (req, res) => {
 
 export const updateMonitor = async (req, res) => {
     try {
-        const monitor = await updateMonitorService(req.params.id, req.body)
+        const monitor = await updateMonitorService(req.params.id, req.body, req.user.id)
 
         res.status(200).json({
             data: monitor
@@ -79,7 +79,7 @@ export const updateMonitor = async (req, res) => {
 
 export const deleteMonitor = async (req, res) => {
     try {
-        const monitor = await deleteMonitorService(req.params.id)
+        const monitor = await deleteMonitorService(req.params.id, req.user.id)
 
         res.status(200).json({
             message: "Monitor deleted succesfully"
@@ -101,12 +101,17 @@ export const deleteMonitor = async (req, res) => {
 
 export const getMonitorStats = async (req, res) => {
     try {
-        const stats = await getMonitorStatsService(req.params.id)
+        const stats = await getMonitorStatsService(req.params.id, req.user.id)
 
         res.status(200).json({
             data: stats
         })
     } catch (error) {
+        if (error.code === "PGRST116") {
+            return res.status(404).json({
+                error: "Monitor not found"
+            })
+        }
         res.status(500).json({
             error: error.message
         })
@@ -115,12 +120,17 @@ export const getMonitorStats = async (req, res) => {
 
 export const getChecksByMonitor = async (req, res) => {
     try {
-        const checks = await getChecksByMonitorService(req.params.id)
+        const checks = await getChecksByMonitorService(req.params.id, req.user.id)
 
         res.status(200).json({
             data: checks
         })
     } catch (error) {
+        if (error.code === "PGRST116") {
+            return res.status(404).json({
+                error: "Monitor not found"
+            })
+        }
         res.status(500).json({
             error: error.message
         })
@@ -129,12 +139,17 @@ export const getChecksByMonitor = async (req, res) => {
 
 export const getMonitorIncidents = async (req, res) => {
     try {
-        const incidents = await getMonitorIncidentsService(req.params.id)
+        const incidents = await getMonitorIncidentsService(req.params.id, req.user.id)
 
         res.status(200).json({
             data: incidents
         })
     } catch (error) {
+        if (error.code === "PGRST116") {
+            return res.status(404).json({
+                error: "Monitor not found"
+            })
+        }
         res.status(500).json({
             error: error.message
         })
