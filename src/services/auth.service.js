@@ -12,7 +12,7 @@ export const register = async(user) => {
     .insert({
         name,
         email,
-        hashedPassword
+        password: hashedPassword
     })
     .select("id, name, email, created_at")
     .single()
