@@ -9,8 +9,11 @@ import {
     getChecksByMonitor,
     getMonitorIncidents
 } from '../controllers/monitor.controller.js'
+import { authMiddleware } from '../middlewares/auth.middleware.js'
 
 const router = express.Router()
+
+router.use(authMiddleware)
 
 router.post("/", createMonitor)
 router.get("/", getMonitors)

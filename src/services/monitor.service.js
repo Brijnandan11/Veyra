@@ -1,10 +1,13 @@
 import supabase from "../config/supabase.js"
 
-export const createMonitor = async (monitorData) => {
+export const createMonitor = async (monitorData, userId) => {
 
     const { data, error } = await supabase
         .from("monitors")
-        .insert(monitorData)
+        .insert({
+            ...monitorData,
+            user_id: userId
+        })
         .select()
         .single()
 

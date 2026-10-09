@@ -8,7 +8,7 @@ import { getMonitorIncidents as getMonitorIncidentsService } from "../services/i
 
 export const createMonitor = async (req, res) => {
     try {
-        const monitor = await createMonitorService(req.body)
+        const monitor = await createMonitorService(req.body, req.user.id)
 
         res.status(201).json({
             data: monitor
