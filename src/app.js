@@ -2,6 +2,7 @@ import express from "express"
 import supabase from "./config/supabase.js"
 import monitorRoutes from "./routes/monitor.routes.js"
 import authRoutes from "./routes/auth.routes.js"
+import publicStatusRoutes from "./routes/public-status.routes.js"
 import { authMiddleware } from "./middlewares/auth.middleware.js"
 
 const app = express()
@@ -10,6 +11,7 @@ app.use(express.json())
 
 app.use("/api/v1/auth", authRoutes)
 app.use("/api/v1/monitors", monitorRoutes)
+app.use("/api/v1/public/status", publicStatusRoutes)
 
 app.get("/", (req, res) => {
     res.json({
