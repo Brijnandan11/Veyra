@@ -4,34 +4,38 @@ import { checkUrl } from "../services/health.service.js"
 import { createCheck } from "../services/check.service.js"
 import { getOpenIncident, createIncident, resolveIncident } from "../services/incident.service.js"
 
+const lastChecked = new Map()
+
 cron.schedule("* * * * *", async () => {
     try {
         const monitors = await getActiveMonitors()
 
         for (const monitor of monitors) {
             try {
+                const now = Date.now()
+                const lastCheck = lastChecked.get(monitor.id) ?? 0
+                const intervalMs = monitor.interval * 1000
+
+                if (now - lastCheck < intervalMs) {
+                    continue
+                }
+
+                lastChecked.set(monitor.id, Date.now())
+
                 const result = await checkUrl(monitor.url)
 
                 await createCheck(monitor.id, result)
 
                 const incident = await getOpenIncident(monitor.id)
 
-                if(result.status === "down" && !incident){
+                if (result.status === "down" && !incident) {
                     await createIncident(monitor.id)
                 }
 
-                if(result.status === "down" && incident){
-
-                }
-
-                if(result.status === "up" && incident){
+                if (result.status === "up" && incident) {
                     await resolveIncident(incident.id)
                 }
 
-                if(result.status === "up" && !incident){
-
-                }
-                 
                 console.log(monitor.name, result)
 
             } catch (error) {
