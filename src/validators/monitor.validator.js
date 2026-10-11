@@ -4,6 +4,7 @@ export const createMonitorSchema = z.object({
     name: z.string().trim().min(1),
     url: z.string().url(),
     interval: z.number().int().positive(),
-    active: z.boolean().optional()
+    active: z.boolean().optional(),
+    is_public: z.boolean().optional()
 })
 
