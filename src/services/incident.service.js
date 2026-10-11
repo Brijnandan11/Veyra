@@ -1,11 +1,10 @@
 import supabase from "../config/supabase.js"
 
-export const getOpenIncident = async (monitorId, userId) => {
+export const getOpenIncident = async (monitorId) => {
     const { data, error } = await supabase
         .from("incidents")
         .select("*")
         .eq("monitor_id", monitorId)
-        .eq("user_id", userId)
         .eq("status", "open")
         .maybeSingle()
 
@@ -15,12 +14,11 @@ export const getOpenIncident = async (monitorId, userId) => {
     return data
 }
 
-export const createIncident = async (monitorId,userId) => {
+export const createIncident = async (monitorId) => {
     const { data, error } = await supabase
         .from("incidents")
         .insert({
             monitor_id: monitorId,
-            user_id: userId,
             status: "open"
         })
         .select()
@@ -50,12 +48,11 @@ export const resolveIncident = async (incidentId) => {
 
 }
 
-export const getMonitorIncidents = async(monitorId, userId) => {
+export const getMonitorIncidents = async(monitorId) => {
     const { data, error } = await supabase 
       .from("incidents")
       .select("*")
       .eq("monitor_id", monitorId)
-      .eq("user_id", userId)
       .order("started_at", { ascending: false })
 
       if(error){
