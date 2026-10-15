@@ -1,7 +1,17 @@
 import { Resend } from "resend"
 import supabase from "../config/supabase.js"
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+let resend = null
+
+function getResend() {
+    if (!resend) {
+        if (!process.env.RESEND_API_KEY) {
+            throw new Error("RESEND_API_KEY is not set")
+        }
+        resend = new Resend(process.env.RESEND_API_KEY)
+    }
+    return resend
+}
 
 async function getMonitorOwnerEmail(userId) {
     if (!userId) return null
@@ -28,7 +38,9 @@ async function sendEmail({ to, subject, html }) {
         return
     }
 
-    const { error } = await resend.emails.send({
+    const resendClient = getResend()
+
+    const { error } = await resendClient.emails.send({
         from: process.env.EMAIL_FROM,
         to,
         subject,
