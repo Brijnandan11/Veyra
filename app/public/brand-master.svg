@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0b0d12"/>
+  <rect x="0" y="0" width="1200" height="4" fill="#5b3df5"/>
+  <g transform="translate(96,150) scale(1.375)">
+    <rect x="0" y="0" width="120" height="120" rx="26" fill="#5b3df5"/>
+    <path d="M33.1 27.8 v14.2 l11.8 14.2 11.8 -14.2 v-14.2 l-11.8 20.1 l-5.3 -7.7" fill="none" stroke="#f4f1ea" stroke-width="4.7" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="46.1" cy="14.9" r="5.3" fill="#3ddc97"/>
+  </g>
+  <text x="96" y="440" fill="#f4f1ea" font-family="Arial, Helvetica, sans-serif" font-size="104" font-weight="600" letter-spacing="-3">Veyra</text>
+  <text x="100" y="492" fill="#aeb3c2" font-family="'Courier New', monospace" font-size="20" letter-spacing="4">WEBSITE + API MONITORING / KNOW WHAT BREAKS FIRST</text>
+  <path d="M96 560h180" stroke="#5b3df5" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="286" cy="560" r="7" fill="#3ddc97"/>
+</svg>

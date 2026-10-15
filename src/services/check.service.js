@@ -19,17 +19,33 @@ export const createCheck = async (monitorId, result) => {
      return data
 }
 
-export const getChecksByMonitor = async(monitorId, userId) => {
+export const getChecksByMonitor = async (monitorId, userId) => {
+    const { data: monitor, error: monitorError } = await supabase
+      .from("monitors")
+      .select("id")
+      .eq("id", monitorId)
+      .eq("user_id", userId)
+      .maybeSingle()
+
+    if (monitorError) {
+      throw monitorError
+    }
+
+    if (!monitor) {
+      const error = new Error("Monitor not found")
+      error.code = "PGRST116"
+      throw error
+    }
+
     const { data, error } = await supabase
       .from("checks")
       .select("*")
       .eq("monitor_id", monitorId)
-      .eq("user_id", userId)
       .order("checked_at", { ascending: false })
 
-      if(error){
-        throw error
-      }
+    if (error) {
+      throw error
+    }
 
-      return data
+    return data
 }

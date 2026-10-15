@@ -1,0 +1,16 @@
+node_modules/
+dist/
+audit/
+.impeccable/
+.agent/
+.agents/
+.opencode/
+.claude/
+.codex/
+.cursor/
+.gemini/
+.hermes/
+.kiro/
+.freebuff/
+*.local
+.DS_Store

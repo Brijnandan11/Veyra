@@ -1,11 +1,27 @@
 import supabase from "../config/supabase.js"
 
 export const getMonitorStats = async (monitorId, userId) => {
+    const { data: monitor, error: monitorError } = await supabase
+        .from('monitors')
+        .select('id')
+        .eq('id', monitorId)
+        .eq('user_id', userId)
+        .maybeSingle()
+
+    if (monitorError) {
+        throw monitorError
+    }
+
+    if (!monitor) {
+        const error = new Error('Monitor not found')
+        error.code = 'PGRST116'
+        throw error
+    }
+
     const { data: checks, error } = await supabase
         .from('checks')
         .select("status, response_time, checked_at")
         .eq("monitor_id", monitorId)
-        .eq("user_id", userId)
 
     if (error) {
         throw error

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b0d12" />
+    <meta name="description" content="Veyra watches websites and APIs, keeps the evidence, and helps teams recover before small signals become outages." />
+    <meta property="og:title" content="Veyra — Website and API monitoring" />
+    <meta property="og:description" content="Know what breaks first. Monitor endpoints, preserve evidence, and share service health clearly." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- Critical: the brand dark as the very first paint colour. No blank/white
+         flash even before CSS or JS arrives; content stays visible if JS fails.
+         js-motion is synchronously resolved once React mounts; inside the hero it
+         gates the intro-hidden states for the entrance choreography. -->
+    <style>
+      html { background: #0b0d12; }
+      body { margin: 0; background: #0b0d12; }
+      #root:empty::before {
+        content: "Veyra — website and API monitoring";
+        display: block;
+        padding: 2rem 1.5rem;
+        color: #f4f1ea;
+        background: #0b0d12;
+        font: 500 16px/1.4 'Geist Variable', system-ui, 'Segoe UI', sans-serif;
+      }
+    </style>
+    <script>
+      (function () {
+        var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+        var small = window.matchMedia('(max-width: 767px)').matches;
+        var touch = window.matchMedia('(pointer: coarse)').matches;
+        var off = new URLSearchParams(window.location.search).get('motion') === 'off';
+        if (!mq.matches && !small && !touch && !off) {
+          var set = function () { document.documentElement.classList.add('js-motion'); };
+          if (document.documentElement) set(); else document.addEventListener('DOMContentLoaded', set);
+        }
+      })();
+    </script>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <title>Veyra — Website and API monitoring</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

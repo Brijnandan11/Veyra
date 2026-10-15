@@ -3,6 +3,10 @@ import { getActiveMonitors } from "../services/monitor.service.js"
 import { checkUrl } from "../services/health.service.js"
 import { createCheck } from "../services/check.service.js"
 import { getOpenIncident, createIncident, resolveIncident } from "../services/incident.service.js"
+import {
+    sendMonitorDownEmail,
+    sendMonitorRecoveredEmail,
+} from "../services/email.service.js"
 
 const lastChecked = new Map()
 
@@ -30,10 +34,12 @@ cron.schedule("* * * * *", async () => {
 
                 if (result.status === "down" && !incident) {
                     await createIncident(monitor.id)
+                    await sendMonitorDownEmail(monitor)
                 }
 
                 if (result.status === "up" && incident) {
                     await resolveIncident(incident.id)
+                    await sendMonitorRecoveredEmail(monitor)
                 }
 
                 console.log(monitor.name, result)

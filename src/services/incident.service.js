@@ -48,16 +48,33 @@ export const resolveIncident = async (incidentId) => {
 
 }
 
-export const getMonitorIncidents = async(monitorId) => {
-    const { data, error } = await supabase 
+export const getMonitorIncidents = async (monitorId, userId) => {
+    const { data: monitor, error: monitorError } = await supabase
+      .from("monitors")
+      .select("id")
+      .eq("id", monitorId)
+      .eq("user_id", userId)
+      .maybeSingle()
+
+    if (monitorError) {
+      throw monitorError
+    }
+
+    if (!monitor) {
+      const error = new Error("Monitor not found")
+      error.code = "PGRST116"
+      throw error
+    }
+
+    const { data, error } = await supabase
       .from("incidents")
       .select("*")
       .eq("monitor_id", monitorId)
       .order("started_at", { ascending: false })
 
-      if(error){
-        throw error
-      }
+    if (error) {
+      throw error
+    }
 
-      return data
+    return data
 }
