@@ -1,5 +1,10 @@
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "/api/v1";
 
+// Debug: log the API base URL being used (only in development)
+if (import.meta.env.DEV) {
+  console.log('[Veyra API] Base URL:', API_BASE_URL);
+}
+
 class ApiError extends Error {
   constructor(message, status, data) {
     super(message);
@@ -37,7 +42,7 @@ async function request(endpoint, options = {}) {
     response = await fetch(url, config);
   } catch (error) {
     throw new ApiError(
-      "Unable to reach the Veyra API. Start the backend server and make sure it is running on port 3000.",
+      `Unable to reach the Veyra API at ${API_BASE_URL}. Check that VITE_API_BASE_URL is set correctly in Vercel and the backend is running.`,
       0,
       {}
     );

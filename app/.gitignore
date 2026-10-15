@@ -14,3 +14,5 @@ audit/
 .freebuff/
 *.local
 .DS_Store
+.env
+.env.*
