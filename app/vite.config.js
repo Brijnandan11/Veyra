@@ -14,6 +14,7 @@ export default defineConfig({
     outDir: 'dist',
     sourcemap: false,
     minify: 'esbuild',
+    target: 'es2020',
   },
   server: {
     host: '0.0.0.0',
