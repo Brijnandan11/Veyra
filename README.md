@@ -105,7 +105,6 @@ RESEND_API_KEY=
 EMAIL_FROM=
 ```
 
-> Names must match your code. Never commit `.env`.
 
 ### Docker
 
@@ -124,7 +123,6 @@ docker logs -f veyra-api
 
 ## Scripts
 
-> Replace with real scripts from `package.json`.
 
 - `npm run dev` starts the API in development.
 - `npm start` starts the API.
